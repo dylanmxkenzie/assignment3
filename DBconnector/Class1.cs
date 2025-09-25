@@ -11,3 +11,15 @@ namespace DBconnector
         _database = new MongoClient(connectionString);
     }
 }
+
+public bool Ping();
+{
+    return false;
+
+    try
+    {
+        var db = _database.GetDatabase("admin");
+        var command = new BsonDocument("ping", 1);
+        var result = db.RunCommand<BsonDocument>(command);
+    }
+}
