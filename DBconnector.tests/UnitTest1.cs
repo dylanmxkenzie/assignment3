@@ -10,27 +10,32 @@ namespace DBconnector.tests
     public class UnitTest1
     {
         [Fact]
-        public void Ping_ShouldReturnTrue_WhenMongoIsReachable()
+        public async Task Ping_ShouldReturnTrue_WhenMongoIsReachable()
         {
             var mongoContainer = new TestcontainersBuilder<MongoDbTestcontainer>()
                 .WithDatabase(new MongoDbTestcontainerConfiguration())
                 .Build();
 
-            mongoContainer.StartAsync().GetAwaiter().GetResult();
+            await mongoContainer.StartAsync();
+                
 
             var connector = new Class1(mongoContainer.ConnectionString);
 
-            Assert.True(connector.Ping());
+            var result = await connector.Ping();
 
-            mongoContainer.DisposeAsync();
+            Assert.True(result);
+
+            await mongoContainer.DisposeAsync();
 
         }
 
         [Fact]
-        public void Ping_ShouldReturnFalse_WhenConnectionFails()
+        public async Task Ping_ShouldReturnFalse_WhenConnectionFails()
         {
             var connector = new Class1("mongodb:// invaild");
-            Assert.False(connector.Ping());
+
+            var result = await connector.Ping();
+            Assert.False(result);
         }
     }
 }
