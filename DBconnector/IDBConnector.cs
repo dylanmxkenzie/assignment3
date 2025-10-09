@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DBconnector
 {
-    internal interface IDBConnector
+    public interface IDBConnector
     {
         Task<bool> Ping();
     }
