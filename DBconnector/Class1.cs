@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace DBconnector
 {
-    public class Class1
+    public class Class1 : IDBConnector
     {
         private readonly IMongoClient _client;
 
@@ -13,13 +13,15 @@ namespace DBconnector
             _client = new MongoClient(connectionString);
         }
 
-    public bool Ping()
+        public async Task<bool> Ping()
         {
             try
             {
+                var database = _client.GetDatabase("admin");
+
                 var command = new BsonDocument { { "ping", 1 } };
 
-                _client.GetDatabase("admin").RunCommand<BsonDocument>(command);
+                await _client.GetDatabase("admin").RunCommandAsync<BsonDocument>(command);
                 return true;
             }
             catch
@@ -27,12 +29,11 @@ namespace DBconnector
                 return false;
             }
 
-                       
-
-
-            }
         }
     }
+}
 
+
+       
 
 
