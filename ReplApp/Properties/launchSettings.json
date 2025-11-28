@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ReplApp": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

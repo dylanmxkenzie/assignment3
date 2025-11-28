@@ -1,0 +1,6 @@
+services:
+  replapp:
+    image: ${DOCKER_REGISTRY-}replapp
+    build:
+      context: .
+      dockerfile: ReplApp/Dockerfile
